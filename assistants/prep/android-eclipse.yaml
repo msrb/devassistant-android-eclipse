@@ -1,0 +1,43 @@
+fullname: Android Development Environment
+description: Assistant for setting up Android development environment
+
+dependencies:
+    - rpm: ['java-devel', 'eclipse-jdt', 'glibc(x86-32)', 'glibc-devel(x86-32)',
+            'libstdc++(x86-32)', 'zlib-devel(x86-32)', 'ncurses-devel(x86-32)',
+            'libX11-devel(x86-32)', 'libXrender(x86-32)', 'libXrandr(x86-32)']
+
+args:
+  path:
+    use: common_args
+    default: ~/android-sdks
+    help:
+      Path where to install Android SDK
+    gui_hints:
+      type: path
+      default: ~/android-sdks
+
+run:
+  - cl: eclipse -application org.eclipse.equinox.p2.director
+              -noSplash -repository https://dl-ssl.google.com/android/eclipse/
+              -installIUs
+               com.android.ide.eclipse.adt.feature.feature.group,com.android.ide.eclipse.ddms.feature.feature.group,com.android.ide.eclipse.hierarchyviewer.feature.feature.group,com.android.ide.eclipse.ndk.feature.feature.group,com.android.ide.eclipse.traceview.feature.feature.group,com.android.ide.eclipse.gldebugger.feature.feature.group
+  - $tarball~: $(curl -s "http://developer.android.com//sdk/index.html" | sed -n 's|^.*>\(android-sdk_r[0-9\.]*-linux.tgz\)</a>|\1|p')
+  - $tarballpath: /tmp/$tarball
+  - $androiddir: ~~/.android
+  - $ddmscfg: $androiddir/ddms.cfg
+  - $sdkdir: $path/android-sdk-linux
+  - $androidbin: $sdkdir/tools/android
+  - cl: rm -f $tarballpath
+  - cl: wget -O $tarballpath http://dl.google.com/android/$tarball
+  - if not $(test -e "$path"):
+    - cl: mkdir -p "$path"
+  - cl: tar -C "$path" -xvf $tarballpath
+  - if not $(test -e "$androiddir"):
+    - cl: mkdir -p "$androiddir"
+  - if not $(test -e "$ddmscfg"):
+    - cl: touch "$ddmscfg"
+  - else:
+    - cl: sed -i 's|^\(lastSdkPath=\).*|\1$sdkdir|' "$ddmscfg"
+  - if not $(grep "lastSdkPath=$sdkdir" $ddmscfg):
+    - cl: echo "lastSdkPath=$sdkdir" >> $ddmscfg
+  - cl: echo "y" | $androidbin update sdk --filter tools,platform-tools,build-tools-21.0.1,doc-21,android-21,extra-android-support --no-ui
