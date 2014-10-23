@@ -1,0 +1,7 @@
+package_name: android-eclipse
+version: 0.1
+license: MIT
+authors: [Michal Srb <msrb_at_redhat.com>]
+homepage: https://github.com/msrb/devassistant-assistants-fedora
+summary: TODO
+bugreports: https://github.com/msrb/devassistant-assistants-fedora/issues
