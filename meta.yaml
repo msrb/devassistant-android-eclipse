@@ -3,5 +3,5 @@ version: 0.1
 license: MIT
 authors: [Michal Srb <msrb_at_redhat.com>]
 homepage: https://github.com/msrb/devassistant-assistants-fedora
-summary: TODO
+summary: Assistant for setting up Android development environment in Eclipse
 bugreports: https://github.com/msrb/devassistant-assistants-fedora/issues
