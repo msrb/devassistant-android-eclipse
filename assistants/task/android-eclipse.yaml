@@ -31,7 +31,7 @@ run:
   - $sdkdir: $path/android-sdk-linux
   - $androidbin: $sdkdir/tools/android
   - cl: rm -f $tarballpath
-  - log_i: Downloading SDK Tools from $tarballpath
+  - log_i: Downloading SDK Tools from http://dl.google.com/android/$tarball
   - cl: wget --quiet -O $tarballpath http://dl.google.com/android/$tarball
   - if not $(test -e "$path"):
     - cl: mkdir -p "$path"
