@@ -47,5 +47,5 @@ run:
   - if not $(grep "lastSdkPath=$sdkdir" $ddmscfg):
     - cl: echo "lastSdkPath=$sdkdir" >> $ddmscfg
   - log_i: Downloading additional SDK packages...
-  - cl: echo "y" | $androidbin update sdk --filter tools,platform-tools,build-tools-21.0.1,doc-21,android-21,extra-android-support --no-ui > /dev/null
+  - cl: echo "y" | $androidbin update sdk --filter tools,platform-tools,build-tools-21.1.0,doc-21,android-21,extra-android-support --no-ui > /dev/null
   - log_i: Done!
