@@ -19,6 +19,7 @@ args:
       default: ~/android-sdks
 
 run:
+  - log_i: Installing Eclipse features
   - cl: eclipse -application org.eclipse.equinox.p2.director
               -noSplash -repository https://dl-ssl.google.com/android/eclipse/
               -installIUs
@@ -30,10 +31,13 @@ run:
   - $sdkdir: $path/android-sdk-linux
   - $androidbin: $sdkdir/tools/android
   - cl: rm -f $tarballpath
+  - log_i: Downloading SDK Tools from $tarballpath
   - cl: wget --quiet -O $tarballpath http://dl.google.com/android/$tarball
   - if not $(test -e "$path"):
     - cl: mkdir -p "$path"
+  - log_i: Unpacking SDK Tools to $path
   - cl: tar -C "$path" -xvf $tarballpath
+  - log_i: Registering SDK Tools with Eclipse
   - if not $(test -e "$androiddir"):
     - cl: mkdir -p "$androiddir"
   - if not $(test -e "$ddmscfg"):
@@ -42,4 +46,6 @@ run:
     - cl: sed -i 's|^\(lastSdkPath=\).*|\1$sdkdir|' "$ddmscfg"
   - if not $(grep "lastSdkPath=$sdkdir" $ddmscfg):
     - cl: echo "lastSdkPath=$sdkdir" >> $ddmscfg
+  - log_i: Downloading additional SDK packages
   - cl: echo "y" | $androidbin update sdk --filter tools,platform-tools,build-tools-21.0.1,doc-21,android-21,extra-android-support --no-ui > /dev/null
+  - log_i: Done
