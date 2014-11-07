@@ -57,7 +57,7 @@ run:
     - cl: echo "lastSdkPath=$sdkdir" >> $ddmscfg
   - log_i: Downloading additional SDK packages...
   - $btversion~: $($androidbin list sdk -e |grep '"build-tools-' | sed 's|.*"build-tools-\([0-9.]*\)"$|\1|')
-  - cl: echo "y" | $androidbin update sdk --filter tools,platform-tools,build-tools-$btversion,doc-21,android-21,extra-android-support --no-ui > /dev/null
+  - cl: echo "y" | $androidbin update sdk --filter tools,platform-tools,build-tools-$btversion,doc-21,android-21,source-21,extra-android-support --no-ui > /dev/null
   - log_i: Done!
 - else:
   - log_e: You must accept Android SDK license
