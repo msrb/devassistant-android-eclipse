@@ -17,8 +17,17 @@ args:
     gui_hints:
       type: path
       default: ~/android-sdks
+  acceptlicense:
+    flags:
+      - --accept-sdk-license
+    help:
+      'Accept Android SDK license'
+    action:
+      'store_true'
+
 
 run:
+- if defined $accept_sdk_license or $acceptlicense:
   - log_i: Installing Eclipse features...
   - cl: eclipse -application org.eclipse.equinox.p2.director
               -noSplash -repository https://dl-ssl.google.com/android/eclipse/
@@ -49,3 +58,5 @@ run:
   - log_i: Downloading additional SDK packages...
   - cl: echo "y" | $androidbin update sdk --filter tools,platform-tools,build-tools-21.1.0,doc-21,android-21,extra-android-support --no-ui > /dev/null
   - log_i: Done!
+- else:
+  - log_e: You must accept Android SDK license
