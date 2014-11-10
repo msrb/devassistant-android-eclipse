@@ -57,7 +57,10 @@ run:
     - cl: echo "lastSdkPath=$sdkdir" >> $ddmscfg
   - log_i: Downloading additional SDK packages...
   - $btversion~: $($androidbin list sdk -e |grep '"build-tools-' | sed 's|.*"build-tools-\([0-9.]*\)"$|\1|')
-  - cl: echo "y" | $androidbin update sdk --filter tools,platform-tools,build-tools-$btversion,doc-21,android-21,source-21,extra-android-support --no-ui > /dev/null
+  - cl: echo "y" | $androidbin update sdk --filter tools,platform-tools,build-tools-$btversion,doc-21,android-21,extra-android-support --no-ui > /dev/null
+  - cl: echo "y" | $androidbin update sdk --filter source-21,sys-img-x86_64-android-21,sys-img-x86-android-21 --no-ui --all > /dev/null
+  - log_i: Creating new Android Virtual Device
+  - cl: echo "no" | $androidbin create avd -n android21-da --force -t android-21 --abi default/x86_64 --skin WVGA800
   - log_i: Done!
 - else:
   - log_e: You must accept Android SDK license
