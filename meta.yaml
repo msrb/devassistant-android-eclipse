@@ -1,7 +1,12 @@
 package_name: android-eclipse
-version: 0.1
+version: 0.2
 license: MIT
-authors: [Michal Srb <msrb@redhat.com>]
+summary: Prepare your Eclipse for Android development
 homepage: https://github.com/msrb/devassistant-assistants-fedora
-summary: Assistant for setting up Android development environment in Eclipse
 bugreports: https://github.com/msrb/devassistant-assistants-fedora/issues
+authors: [Michal Srb <msrb@redhat.com>]
+supported_platforms: [fedora]
+description:
+    This assistant installs Eclipse from official Fedora repositories and
+    enhances it with all necessary plugins and tools needed for Android
+    development.
