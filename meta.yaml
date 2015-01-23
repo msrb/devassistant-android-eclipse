@@ -1,5 +1,5 @@
 package_name: android-eclipse
-version: 0.2
+version: 0.2.1
 license: MIT
 summary: Prepare your Eclipse for Android development
 homepage: https://github.com/msrb/devassistant-assistants-fedora
