@@ -5,6 +5,8 @@ summary: Prepare your Eclipse for Android development
 homepage: https://github.com/msrb/devassistant-assistants-fedora
 bugreports: https://github.com/msrb/devassistant-assistants-fedora/issues
 authors: [Michal Srb <msrb@redhat.com>]
+dependencies:
+    - common_args
 supported_platforms: [fedora]
 description:
     This assistant installs Eclipse from official Fedora repositories and
